@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/success.view")
 public class Success extends HttpServlet {
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    response.setContentType("text/html;charset=UTF-8");
-	    PrintWriter out = response.getWriter();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
         out.println("<html>");
         out.println("<head>");
@@ -25,5 +25,5 @@ public class Success extends HttpServlet {
         out.println("</html>");
 
         out.close();
-	}
+    }
 }

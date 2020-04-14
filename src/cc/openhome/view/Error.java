@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/error.view")
 public class Error extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 实作步骤1
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE html PUBLIC " +
                 "'-//W3C//DTD HTML 4.01 Transitional//EN'>");
@@ -26,12 +26,8 @@ public class Error extends HttpServlet {
         out.println("<h1>新增会员失败</h1>");
         out.println("<ul style='color: rgb(255, 0, 0);'>");
 
-
-        /*
-         * 实作步骤2、3
-         */
         List<String> errors = (List<String>) request.getAttribute("errors");
-        for (String error : errors) {
+        for(String error : errors) {
             out.println("  <li>" + error + "</li>");
         }
 

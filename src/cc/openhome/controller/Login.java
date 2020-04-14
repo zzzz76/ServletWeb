@@ -17,15 +17,17 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
             throws ServletException, IOException {
-	    /*
-	     * 实现步骤1、2
-	     */
-	    String username = request.getParameter("username");
-	    String password = request.getParameter("password");
-	    if (checkLogin(username, password)) {
-	        request.getRequestDispatcher(SUCCESS_VIEW).forward(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String page = ERROR_VIEW;
+        //验证失败：重定向访问login.html界面
+        if(checkLogin(username, password)) {
+            //验证成功：重定向访问member.view
+			/* 获取session，设置属性 */
+            request.getSession().setAttribute("login", username);
+            page = SUCCESS_VIEW;
         }
-        response.sendRedirect(ERROR_VIEW);
+        response.sendRedirect(page);
     }
 
     private boolean checkLogin(String username, String password)
