@@ -11,22 +11,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.openhome.model.UserService;
+
 @WebServlet("/member.view")
 public class Member extends HttpServlet {
-	private final String USERS = "/home/zzzz76/IdeaProjects/ServletWeb/users";
-	private final String LOGIN_VIEW = "index.html";
-
 	protected void processRequest(HttpServletRequest request,
 								  HttpServletResponse response) throws ServletException, IOException {
-		if(request.getSession().getAttribute("login") == null) {
-			response.sendRedirect(LOGIN_VIEW);
-			return;
-		}
 
 		String username = (String) request.getSession().getAttribute("login");
 
@@ -65,8 +61,9 @@ public class Member extends HttpServlet {
 		out.println("</thead>");
 		out.println("<tbody>");
 
+		UserService userService = (UserService) getServletContext().getAttribute("userService");
 
-		Map<Date, String> messages = readMessage(username);
+		Map<Date, String> messages = userService.readMessage(username);
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.TAIWAN);
 
 		for(Date date : messages.keySet()) {
@@ -85,46 +82,6 @@ public class Member extends HttpServlet {
 		out.println("</html>");
 
 		out.close();
-	}
-
-	private class TxtFilenameFilter implements FilenameFilter {
-		@Override
-		public boolean accept(File dir, String name) {
-			return name.endsWith(".txt");
-		}
-	}
-
-	private TxtFilenameFilter filenameFilter = new TxtFilenameFilter();
-
-	private class DateComparator implements Comparator<Date> {
-		@Override
-		public int compare(Date d1, Date d2) {
-			return -d1.compareTo(d2);
-		}
-	}
-
-	private DateComparator comparator = new DateComparator();
-
-	private Map<Date, String> readMessage(String username) throws IOException {
-		File border = new File(USERS + "/" + username);
-		String[] txts = border.list( filenameFilter);
-
-		Map<Date, String> messages = new TreeMap<Date, String>(comparator);
-		for(String txt : txts) {
-			BufferedReader reader = new BufferedReader(
-					new InputStreamReader(
-							new FileInputStream(USERS + "/" + username + "/" + txt), "UTF-8"));
-			String text = null;
-			StringBuilder builder = new StringBuilder();
-			while((text = reader.readLine()) != null) {
-				builder.append(text);
-			}
-			Date date = new Date(Long.parseLong(txt.substring(0, txt.indexOf(".txt"))));
-			messages.put(date, builder.toString());
-			reader.close();
-		}
-
-		return messages;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
