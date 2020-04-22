@@ -15,8 +15,8 @@ import cc.openhome.model.UserService;
 @WebServlet(
         urlPatterns={"/register.do"},
         initParams={
-                @WebInitParam(name = "SUCCESS_VIEW", value = "success.view"),
-                @WebInitParam(name = "ERROR_VIEW", value = "error.view")
+                @WebInitParam(name = "SUCCESS_VIEW", value = "success.jsp"),
+                @WebInitParam(name = "ERROR_VIEW", value = "register.jsp")
         }
 )
 public class Register extends HttpServlet {
@@ -41,13 +41,13 @@ public class Register extends HttpServlet {
 
         List<String> errors = new ArrayList<String>();
         if (isInvalidEmail(email)) {
-            errors.add("未填写邮件或邮件格式不正确");
+            errors.add("未填寫郵件或郵件格式不正確");
         }
         if (userService.isInvalidUsername(username)) {
-            errors.add("使用者名称为空或已存在");
+            errors.add("使用者名稱為空或已存在");
         }
         if (isInvalidPassword(password, confirmedPasswd)) {
-            errors.add("请确认密码符合格式并再度确认密码");
+            errors.add("請確認密碼符合格式並再度確認密碼");
         }
         String resultPage = ERROR_VIEW;
         if (!errors.isEmpty()) {

@@ -13,27 +13,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(
-	urlPatterns = {"/delete.do", "/logout.do",
-					"/message.do", "/member.view"},
-	initParams = {
-		@WebInitParam(name = "LOGiN_VIEW", value = "index.html")
+		urlPatterns = { "/delete.do", "/logout.do", "/message.do", "/member.jsp" },
+		initParams = { @WebInitParam(name = "LOGIN_VIEW", value = "index.jsp") })
+public class MemberFilter implements Filter {
+	private String LOGIN_VIEW;
+	public void init(FilterConfig config) throws ServletException {
+		this.LOGIN_VIEW = config.getInitParameter("LOGIN_VIEW");
 	}
-)
-public class MemberFilter implements Filter{
-	private String LOGiN_VIEW;
-	public void init(FilterConfig config) throws ServletException{
-		this.LOGiN_VIEW = config.getInitParameter("LOGiN_VIEW");
-	}
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException{
+
+	public void doFilter(ServletRequest request, ServletResponse response,
+						 FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		if(req.getSession().getAttribute("login") != null){
+		if(req.getSession().getAttribute("login") != null) {
 			chain.doFilter(request, response);
 		}
-		else{
+		else {
 			HttpServletResponse resp = (HttpServletResponse) response;
-			resp.sendRedirect(LOGiN_VIEW);
+			resp.sendRedirect(LOGIN_VIEW);
 		}
 	}
-	public void destroy(){}
+
+	public void destroy() {
+	}
+
 }

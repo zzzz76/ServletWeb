@@ -11,7 +11,7 @@ public class EncodingWrapper extends HttpServletRequestWrapper {
         super(request);
         this.ENCODING = ENCODING;
     }
-    
+
     @Override
     public String getParameter(String name) {
         String value = getRequest().getParameter(name);
@@ -20,12 +20,12 @@ public class EncodingWrapper extends HttpServletRequestWrapper {
                 byte[] b = value.getBytes("ISO-8859-1");
                 value = new String(b, ENCODING);
             } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);   
+                throw new RuntimeException(e);
             }
         }
         return value;
     }
-    
-    
+
+
 
 }

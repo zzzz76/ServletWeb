@@ -1,6 +1,9 @@
 package cc.openhome.controller;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,12 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.openhome.model.Blah;
 import cc.openhome.model.UserService;
 
 @WebServlet(
         urlPatterns={"/delete.do"},
         initParams={
-                @WebInitParam(name = "SUCCESS_VIEW", value = "member.view")
+                @WebInitParam(name = "SUCCESS_VIEW", value = "message.do")
         }
 )
 public class Delete extends HttpServlet {
@@ -32,7 +36,10 @@ public class Delete extends HttpServlet {
         String username = (String) request.getSession().getAttribute("login");
         String message = request.getParameter("message");
         UserService userService = (UserService) getServletContext().getAttribute("userService");
-        userService.deleteMessage(username, message);
+        Blah blah = new Blah();
+        blah.setUsername(username);
+        blah.setDate(new Date(Long.parseLong(message)));
+        userService.deleteBlah(blah);
         response.sendRedirect(SUCCESS_VIEW);
     }
 }
