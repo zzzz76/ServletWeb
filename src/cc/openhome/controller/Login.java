@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.openhome.model.Account;
 import cc.openhome.model.UserService;
 
 @WebServlet(
@@ -38,7 +39,10 @@ public class Login extends HttpServlet {
         String page;
 
         UserService userService = (UserService) getServletContext().getAttribute("userService");
-        if(userService.checkLogin(username, password)) {
+        Account account = new Account();
+        account.setName(username);
+        account.setPassword(password);
+        if(userService.checkLogin(account)) {
             request.getSession().setAttribute("login", username);
             page = SUCCESS_VIEW;
         }

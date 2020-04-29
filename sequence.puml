@@ -1,0 +1,81 @@
+@startuml
+
+hide footbox
+
+participant w as "web"
+participant l as "Listener"
+participant t as "Servlet"
+participant c as "Context"
+participant f as "DAOFactory"
+participant d as "DAO"
+participant s as "Service"
+participant q as "Request"
+participant p as "Response"
+
+
+
+w -> l: initialized(context)
+activate l
+
+create f
+l -> f: <<create>>
+
+l -> f: getDAOImpl()
+activate f
+
+create d
+f -> d: <<create>>
+
+return
+
+create s
+l -> s: <<create>>
+
+l -> c: setAttribute(service)
+activate c
+deactivate c
+deactivate
+
+
+create q
+activate w
+w -> q: <<create>>
+create p
+w -> p: <<create>>
+
+w -> t: service(request, response)
+activate t
+
+t -> t: doGet()
+activate t
+
+t -> q: getParameter()
+activate q
+return
+
+t -> c: getAttribute(s)
+activate c
+return
+
+t -> s: addAccount()
+activate s
+
+s -> d: addAccount()
+activate d
+deactivate d
+deactivate s
+
+t -> p: sendRedirect()
+activate p
+deactivate p
+
+deactivate
+return
+
+w -> q: <<destroy>>
+destroy q
+w -> p: <<destroy>>
+destroy p
+
+
+@enduml

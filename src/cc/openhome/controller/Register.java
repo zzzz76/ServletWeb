@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cc.openhome.model.Account;
 import cc.openhome.model.UserService;
 
 @WebServlet(
@@ -38,12 +39,13 @@ public class Register extends HttpServlet {
         String confirmedPasswd = request.getParameter("confirmedPasswd");
 
         UserService userService = (UserService) getServletContext().getAttribute("userService");
+        Account account = new Account(username, password, email);
 
         List<String> errors = new ArrayList<String>();
         if (isInvalidEmail(email)) {
             errors.add("未填寫郵件或郵件格式不正確");
         }
-        if (userService.isInvalidUsername(username)) {
+        if (userService.isUserExisted(account)) {
             errors.add("使用者名稱為空或已存在");
         }
         if (isInvalidPassword(password, confirmedPasswd)) {
@@ -54,7 +56,7 @@ public class Register extends HttpServlet {
             request.setAttribute("errors", errors);
         } else {
             resultPage = SUCCESS_VIEW;
-            userService.createUserData(email, username, password);
+            userService.createUserData(account);
         }
 
         request.getRequestDispatcher(resultPage).forward(request, response);
