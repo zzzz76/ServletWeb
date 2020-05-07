@@ -1,3 +1,5 @@
+<meta name="referrer" content="no-referrer" />
+
 ## 博客管理 web 平台
 
 项目地址 [ServletWeb](https://github.com/zzzz76/ServletWeb) ，小而全的 Java web 项目，仅作学习使用。
