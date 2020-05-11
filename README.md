@@ -1,5 +1,3 @@
-<meta name="referrer" content="no-referrer" />
-
 ## 博客管理 web 平台
 
 项目地址 [ServletWeb](https://github.com/zzzz76/ServletWeb) ，小而全的 Java web 项目，仅作学习使用。
@@ -25,10 +23,10 @@
 
 这里提供了其中四个 Servlet 的业务流程图，分别用来处理注册请求、登入请求、发布请求以及删除请求。其中 ./message.do 不仅处理了发布请求，还用以接收来自登入和删除的重定向请求
 
-<a href="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154241190-188616150.png" referrer="no-referrer|origin|unsafe-url"><img src="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154241190-188616150.png" width="55%" height="55%"></a>
+<a href="https://www.cnblogs.com/zzzz76/p/12802614.html"><img src="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154241190-188616150.png" width="55%" height="55%"></a>
 
 ## 时序图
 
 我们从容器启动到完成一次http请求的处理，建立项目时序图。简单的描述了 web 容器中对象的生命周期管理，以及各个对象之间的动态协作。
 
-<a href="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154306630-1314815313.png" referrer="no-referrer|origin|unsafe-url"><img src="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154306630-1314815313.png" width="75%" height="75%"></a>
+<a href="https://www.cnblogs.com/zzzz76/p/12802614.html"><img src="https://img2020.cnblogs.com/blog/1039974/202004/1039974-20200429154306630-1314815313.png" width="75%" height="75%"></a>
